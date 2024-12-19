@@ -12,6 +12,6 @@
     "license": "ISC",
     "dependencies": {
         "aggregation": "file:",
-        "mongoose": "^8.3.4"
+        "mongoose": "^8.9.1"
     }
 }
