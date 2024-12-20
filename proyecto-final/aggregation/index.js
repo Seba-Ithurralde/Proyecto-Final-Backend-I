@@ -1,11 +1,11 @@
 import mongoose from "mongoose";
-import { orderModel } from "./order.model.js";
+import { productModel } from "./product.model.js";
 
 const environment = async () => {
  
   await mongoose.connect("mongodb+srv://admin:123@cluster70395.glb9w.mongodb.net/proyecto-final");
 
-  const orders = await orderModel.aggregate([
+  const products = await productModel.aggregate([
     {
       $match: { size: "medium" }
     },
@@ -31,7 +31,7 @@ const environment = async () => {
     }
   ])
 
-  console.log(orders);
+  console.log(products);
 };
 
 environment();
