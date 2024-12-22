@@ -23,6 +23,21 @@ class CartDao {
 
   async deleteProductInCart(cid, pid){
     const cart = await cartModel.findById(cid)
+    const productFilter = cart.products.filter(product => product.product != pid)
+
+    return await cartModel.findByIdAndUpdate(cid, { products: productFilter }, { new: true });
+  }
+
+  async updateProductInCart(cid, pid, quantity){
+    const cart = await cartModel.findById(cid)
+    const product = cart.products.find(product => product.product === pid)
+    product.quantity = quantity
+
+    return await cartModel.findByIdAndUpdate(cid, { products: cart.products }, { new: true });
+  }
+
+  async deleteProductsInCart(cid){
+    return await cartModel.findByIdAndUpdate(cid, { products: [] }, { new: true });
   }
 }
 
