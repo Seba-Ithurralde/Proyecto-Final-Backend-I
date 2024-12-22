@@ -21,14 +21,14 @@ class CartDao {
     return await cartModel.findByIdAndDelete(id);
   }
 
-  async deleteProductInCart(cid, pid){
+  async deleteProduct(cid, pid){
     const cart = await cartModel.findById(cid)
     const productFilter = cart.products.filter(product => product.product != pid)
 
     return await cartModel.findByIdAndUpdate(cid, { products: productFilter }, { new: true });
   }
 
-  async updateProductInCart(cid, pid, quantity){
+  async updateProducts(cid, pid, quantity){
     const cart = await cartModel.findById(cid)
     const product = cart.products.find(product => product.product === pid)
     product.quantity = quantity
@@ -36,7 +36,7 @@ class CartDao {
     return await cartModel.findByIdAndUpdate(cid, { products: cart.products }, { new: true });
   }
 
-  async deleteProductsInCart(cid){
+  async deleteProducts(cid){
     return await cartModel.findByIdAndUpdate(cid, { products: [] }, { new: true });
   }
 }
