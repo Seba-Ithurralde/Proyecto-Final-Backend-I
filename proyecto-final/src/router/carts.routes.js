@@ -8,7 +8,6 @@ import { cartDao } from "../dao/mongoDao/carts.dao.js";
 
 const router = Router();
 
-// Crear un carrito
 router.post("/", async (req, res) => {
   try {
     const cart = await cartModel.create({});
@@ -20,7 +19,6 @@ router.post("/", async (req, res) => {
   }
 });
 
-// Obtener un carrito por id
 router.get("/:cid", async (req, res) => {
   const { cid } = req.params;
   try {
@@ -34,11 +32,9 @@ router.get("/:cid", async (req, res) => {
   }
 });
 
-// Agregar un producto a un carrito
 router.post("/:cid/product/:pid", async (req, res) => {
   const { cid, pid } = req.params;
   try {
-    // Validar que el producto exista
     const findProduct = await productModel.findById(pid);
     if (!findProduct) return res.json({ status: "error", message: `Product id ${pid} not found` });
 
@@ -47,10 +43,8 @@ router.post("/:cid/product/:pid", async (req, res) => {
 
     const product = findCart.products.find((productCart) => productCart.product === pid);
     if (!product) {
-      // Agregar el producto al carrito si no existe
       findCart.products.push({ product: pid, quantity: 1 });
     } else {
-      // Incrementar la cantidad en 1 si el producto ya existe
       product.quantity++;
     }
 
@@ -73,7 +67,7 @@ router.delete("/:cid/products/:pid", async (req, res) => {
     const cart = await cartDao.getById(cid);
     if (!cart) return res.json({ status: "error", message: `Cart id ${cid} not found` });
 
-    const cartUpdated = await cartDao.deleteProductInCart(cid, pid);
+    const cartUpdated = await cartDao.deleteProduct(cid, pid);
 
     res.json({ status: "ok", payload: cartUpdated });
     
@@ -93,7 +87,7 @@ router.put("/:cid/products/:pid", async (req, res) => {
     const cart = await cartDao.getById(cid);
     if (!cart) return res.json({ status: "error", message: `Cart id ${cid} not found` });
 
-    const cartUpdated = await cartDao.updateProductInCart(cid, pid, quantity);
+    const cartUpdated = await cartDao.updateProducts(cid, pid, quantity);
 
     res.json({ status: "ok", payload: cartUpdated });
 
@@ -109,7 +103,7 @@ router.delete("/:cid", async (req, res) => {
     const cart = await cartModel.findById(cid);
     if (!cart) return res.json({ status: "error", message: `Cart id ${cid} not found` });
 
-    const cartUpdated = await cartDao.deleteProductsInCart(cid);
+    const cartUpdated = await cartDao.deleteProducts(cid);
 
     res.json({ status: "ok", payload: cartUpdated });
 
