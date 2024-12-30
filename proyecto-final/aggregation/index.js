@@ -7,7 +7,7 @@ const environment = async () => {
 
   const products = await productModel.aggregate([
     {
-      $match: { size: "medium" }
+      $match: { category: "Periférico" }
     },
     {
       $group: {_id: "$name", totalQuantity: { $sum: "$quantity" }}
