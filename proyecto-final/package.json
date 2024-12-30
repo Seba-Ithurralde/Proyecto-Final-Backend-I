@@ -1,5 +1,5 @@
 {
-    "name": "proyecto-final",
+    "name": "preentrega",
     "version": "1.0.0",
     "main": "index.js",
     "type": "module",
@@ -13,9 +13,9 @@
     "description": "",
     "dependencies": {
         "express": "^4.21.1",
-        "mongoose": "^8.9.1",
+        "mongoose": "^8.8.4",
         "mongoose-paginate-v2": "^1.8.5",
-        "proyecto-final": "file:",
+        "preentrega": "file:",
         "uuid": "^11.0.3"
     }
 }
