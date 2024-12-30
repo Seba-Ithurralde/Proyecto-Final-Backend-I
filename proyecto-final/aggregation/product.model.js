@@ -10,7 +10,11 @@ const productSchema = new mongoose.Schema({
   title: String,
   price: Number,
   stock: Number,
-  category: String,
+  category: {
+    type: String,
+    enum: ["Computación", "Periférico", "Kits de Computación"],
+    default: "Periférico"
+  }
 });
 
 export const productModel = mongoose.model(productCollection, productSchema);
