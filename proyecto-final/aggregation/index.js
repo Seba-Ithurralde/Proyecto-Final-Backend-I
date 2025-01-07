@@ -3,7 +3,7 @@ import { orderModel } from "./order.model.js";
 
 const environment = async () => {
  
-  await mongoose.connect("mongodb+srv://admin:123@cluster70395.glb9w.mongodb.net/clase-17");
+  await mongoose.connect("mongodb+srv://admin:123@cluster70395.glb9w.mongodb.net/proyecto-final");
 
 
   const orders = await orderModel.aggregate([
